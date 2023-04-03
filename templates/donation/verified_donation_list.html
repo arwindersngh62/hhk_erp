@@ -1,0 +1,50 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+table, th, td{
+    border:1px solid black;
+    }
+    td,th {
+    padding:10px;
+    }
+</style>
+<table>
+	<tr>
+	<th> Recipt Number</th>
+	<th>Name</th>
+	<th>Amount</th>
+	<th>Donation Date</th>
+	<th>Donation Mode</th>
+	<th>Recipt Date</th>
+	<th>Migrated </th>
+	</tr>
+
+    {% for i in object_list %}
+    <tr>
+    <td>{{ i.rec_no }}</td>
+    {% if i.anon == "True" %}
+    	<td>{{ i.anon_name }}</td>
+    {% else %}
+    	<td>{{ i.member.name }}</td>
+    {% endif %}
+    <td>{{ i.amount }}</td>
+    <td>{{ i.date_donation }}</td>
+    <td>{{ i.mode_donation }}</td>
+    <td>{{ i.date_rec }}</td>
+    <td>{{ i.migrated }}</td>
+    </tr>
+    {% endfor %}
+
+</table>
+<nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+
+    {% endif %}
+  </ul>
+  </nav>
+{% endblock %}

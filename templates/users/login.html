@@ -1,0 +1,23 @@
+<html>
+<head>
+    Login Page
+</head>
+<body>
+<form action = "{%url 'usersreg:index' %}" method="POST">
+    {% csrf_token %}
+    <table>
+        <tr>
+            <ti><label for="loginid">Userame</label></ti>
+            <ti><input type="text" id="loginid" name="loginid"></ti>
+        </tr>
+        <tr>
+            <ti><label for="passwd">Password</label></ti>
+            <ti><input type="password" id="passwd" name="passwd"></ti>
+        </tr>
+        <tr>
+            <ti><input type="submit" name="sumit" id="sumit" value="Submit"></ti>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

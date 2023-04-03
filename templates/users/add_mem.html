@@ -1,0 +1,10 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<form method="POST" action="{% url 'usersreg:add_mem'%}">
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+        <input type="submit" value="Submit">
+</form>
+{% endblock %}

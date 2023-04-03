@@ -1,0 +1,34 @@
+{% extends 'users/index.html' %}
+{% block content %}
+{% if messages == '0' %}
+{% else %}
+<script>
+    alert('{{ messages }}');
+</script>
+{% endif %}
+<form action="{% url 'supporters:supp_edited' %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="pk" id="pk" value="{{obj.pk}}">
+    <table>
+    {{ form.as_table }}
+    <tr>
+        <th><label for="dob">Date of Birth:</label></th>
+        <td><input type="date" id="dob" name="dob"></td>
+    </tr>
+    </table>
+    <input type="submit" value="Submit">
+
+</form>
+    <script>
+      document.getElementById("id_is_constant").onchange = function(){
+      document.getElementById("id_amount").disabled = !this.checked;
+      }
+      document.getElementById("id_is_sponsor").onchange = function(){
+      document.getElementById("id_sponsee").disabled = !this.checked;
+      }
+      document.getElementById("id_is_si").onchange = function(){
+      document.getElementById("id_si_date").disabled = !this.checked;
+      document.getElementById("id_amount").disabled = !this.checked;
+      }
+    </script>
+{% endblock %}

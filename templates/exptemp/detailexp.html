@@ -1,0 +1,122 @@
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+  background-color: #b3c7d6ff; 
+}
+.navbar {
+  overflow: hidden;
+  background-color: #b3c7d6ff;
+  padding: 14px 16px;
+}
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: #85b3d1ff;
+}
+.subnav-content {
+  position: absolute;
+  left: 0;
+  background-color: #2460A7FF;
+  width: 100%;
+  z-index: 1;
+}
+.subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+
+.main-content{
+display:block;
+float:top;
+width:50%;
+margin-left:25%;
+margin-right:25%;
+margin-top:10%;
+padding-left:10%;
+background-color:#85b3d1ff;
+}
+.main-content input[type=submit],#onebut{
+width:30%;
+height:30px;
+margin-left:35%;
+margin-top:10px;
+border-radius:30px;
+background-color:#b3c7d6ff;
+}
+
+textarea {width:180px;
+height:80px;
+}
+    table,td,th{
+        border: 1px solid black;
+    }
+</style>
+</head> 
+<body>
+    <div class="navbar">
+  <div class="subnav">
+    <div class="subnav-content">
+      <h1>Har Hath Kalam India Association</h1>
+      
+    </div>
+  </div>
+  <div class="main-content">
+<h2>Expense Details</h2>
+    <table>
+      <tr>
+        <th>Added By:</th>
+        <td>{{expense.added_by}}</td>
+    </tr>
+    <tr>
+        <th>Event Name</th>
+        <td>{{expense.event_name}}</td>
+    </tr>
+    <tr>
+        <th>Expense Date</th>
+        <td>{{expense.expense_date}}</td>
+    </tr>
+    <tr>
+        <th>Amount</th>
+        <td>{{expense.amount}}</td>
+    </tr>
+    <tr>
+        <th>Vendor Name</th>
+        <td>{{expense.vendor_name}}</td>
+    </tr>
+    <tr>
+        <th>Is Advance</th>
+        <td>{{expense.is_advance}}</td>
+    </tr>
+    <tr>
+        <th>Added On</th>
+        <td>{{expense.added_on}}</td>
+    </tr>
+    <tr>
+        <th>File</th>
+        <td>{{expense.file}}</td>
+    </tr>
+    <tr>
+        <th>Remarks</th>
+        <td>{{expense.remarks}}</td>
+    </tr>
+    </table>
+</form>
+</div>
+</body>
+</html>

@@ -1,0 +1,21 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+      .options a{
+      display:block;
+      background-color: white;
+      padding:5px;
+      text-align:center;
+      border:2px solid #2460A7FF;
+      width:30%;
+      height:5%;
+      margin-left:20%;
+      margin-top:5%;
+      }
+</style>
+<div class="options">
+      <a href="{% url 'donation:don_ind' %}">Individual</a>
+      <a href="{% url 'donation:don_anon' %}">Anonymous</a>
+      <a href="{% url 'donation:don_bulk' %}">Bulk</a>
+</div>
+{% endblock %}

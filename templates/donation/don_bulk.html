@@ -1,0 +1,116 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+    .inner td{ border: 1px solid;}
+</style>
+<form  method="POST">
+{% csrf_token %}
+<label for="name">Name</label>
+<input type="text" id="name" list="names_all" name="supp_name" placeholder="Member Name.." >
+<datalist id="names_all">
+    {% for choice in supp%}
+  <option  value="{{choice.name}},{{choice.phone_no}}" ></option>
+{%endfor%}
+</datalist>
+<input type="submit" value="Get">
+<!-- 
+</form> >
+<form action = "{% url 'donation:don_bulk' %}" method="GET">
+    <table>
+        <tr>
+            <td>
+                <label for="typea">Select the type to fetch</label>
+            </td>
+            <td>
+                <select id="typea" name="typea">
+                    <option value="none">None</option>
+                    <option value="all">ALL</option>
+                    <option value="si">Standard Instruction</option>
+                    <option value="cons">Constant</option>
+                    <option value="res">Resources</option>
+                    <option value="spon">Sponsor</option>
+                    <option value="onetime">One-Time</option>
+                </select>
+            </td>
+            <td>
+                <label for="all">All</label>
+                <input type="checkbox" name="all" id="all" value="true">
+            </td>
+            <td>
+                <input type = "submit" value = "Get" style="width:100%;border-radius:0px;">
+            </td>
+
+        </tr>
+    </table>
+-->
+</form>
+
+<form action = "{% url 'donation:don_added' %}" method="POST">
+{% csrf_token %}
+    <input type="hidden" name = "type" id="type" value="1">
+<table class="inner" style = "width:10%;">
+    <tr>
+    <th>Please Select</th>
+    <th>Name</th>
+    <th>Phone Number</th>
+    <th>City</th>
+    <th>Amount</th>
+    <th>Mode</th>
+    <th>Donation Date</th>
+    <th>Generate Recipt</th>
+    <th>Send Mail</th>
+</tr>
+{% for choice in sup_to_send %}
+<tr>
+    <td><input type = "checkbox" name="choice{{choice.id}}" id = "choice{{choice.id}}" value = "{{choice.id}}"></td>
+    <td><label for = "choice{{choice.id}}" >{{choice.name}}</label></td>
+    <td><label for = "choice{{choice.id}}" >{{choice.phone_no}}</label></td>
+    <td><label for = "choice{{choice.id}}" >{{choice.city}}</label></td>
+    {% if choice.is_constant == True %}
+        <td><input style="width:50px;" type="number" id="amount{{choice.id}}" name="amount{{choice.id}}" value = "{{choice.amount}}"></td>
+    {% else %}
+        <td><input style="width:50px;" type="number" id="amount{{choice.id}}" name="amount{{choice.id}}" placeholder="amount"></td>
+    {% endif %}
+    <td><select  style="width:80px;" id="mode{{choice.id}}" name="mode{{choice.id}}">
+    {% if choice.is_si == True %}
+        <option value="inb">Internet Banking</option>
+        <option value="ca">Cash</option>
+    {% else %}
+        <option value="ca">Cash</option>
+        <option value="inb">Internet Banking</option>
+    {% endif %}
+      <option value="chq">Cheque</option>
+      <option value="upi">UPI</option>
+      <option value="neft">NEFT</option>
+      <option value="imps">IMPS</option>
+
+    </select></td>
+    {% if choice.is_si == True %}
+
+        {% if choice.si_date < 10 %}
+            {% if month < 10 %}
+                <td><input type="date" id="date{{choice.id}}" name="date{{choice.id}}" value="{{year}}-0{{month}}-0{{choice.si_date}}" ></td>
+            {% else %}
+                <td><input type="date" id="date{{choice.id}}" name="date{{choice.id}}" value="{{year}}-{{month}}-0{{choice.si_date}}" ></td>
+            {% endif %}
+        {% endif %}
+        {% if choice.si_date > 9 %}
+            {% if month < 10  %}
+                <td><input type="date" id="date{{choice.id}}" name="date{{choice.id}}" value="{{year}}-0{{month}}-{{choice.si_date}}" ></td>
+            {% else %}
+                <td><input type="date" id="date{{choice.id}}" name="date{{choice.id}}" value="{{year}}-{{month}}-{{choice.si_date}}" ></td>
+            {% endif %}
+        {% endif %}
+    {% endif %}
+
+    {% if choice.is_si != True %}
+        <td><input type="date" id="date{{choice.id}}" name="date{{choice.id}}" ></td>
+    {% endif %}
+    <td><input type = "checkbox" name="recipt{{choice.id}}" id = "recipt{{choice.id}}" value = "{{choice.id}}"></td>
+    <td><input type = "checkbox" name="mail{{choice.id}}" id = "mail{{choice.id}}" value = "{{choice.id}}"></td>
+</tr>
+{% endfor %}
+</table>
+<input type = "submit" value = "Add Donation">
+</form>
+{% endblock %}

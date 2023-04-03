@@ -1,0 +1,15 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<form  method="POST">
+{% csrf_token %}
+<label for="name">Name</label>
+<input type="text" id="name" list="names_all" name="supp_name" placeholder="Member Name.." >
+<datalist id="names_all">
+	{% for choice in supp%}
+  <option  value="{{choice.name}},{{choice.phone_no}}" ></option>
+{%endfor%}
+</datalist>
+<input type="submit" value="Submit">
+</form>
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+table, th, td{
+    border:1px solid black;
+    }
+    td,th {
+    padding:5px;
+    }
+</style>
+<h1>
+    Supporter Details
+</h1>
+<form method="POST">
+    {% csrf_token %}
+<table >
+
+    <input type="text" name="phone" hidden value="{{ supp.phone_no }}">
+    <tr>
+        <th>Name</th>
+        <td>{{supp.name}}</td>
+    </tr>
+    <tr>
+        <th>Age</th>
+        <td>{{supp.age}}</td>
+    </tr>
+    <tr>
+        <th>Phone</th>
+        <td>{{supp.phone_no}}</td>
+    </tr>
+    <tr>
+        <th>Gender</th>
+        <td>{{supp.gender}}</td>
+    </tr>
+    <tr>
+        <th>Alt Phone No</th>
+        <td>{{supp.alt_phone_no}}</td>
+    </tr>
+    <tr>
+        <th>Email Id</th>
+        <td>{{supp.email_id}}</td>
+    </tr>
+    <tr>
+        <th>City</th>
+        <td>{{supp.city}}</td>
+    </tr>
+    <tr>
+        <th>Reference</th>
+        <td>{{supp.Reference}}</td>
+    </tr>
+    <tr>
+        <th>Pan Card</th>
+        <td>{{supp.pan_card}}</td>
+    </tr>
+    <tr>
+        <th>Address</th>
+        <td>{{supp.address_a}}</td>
+    </tr>
+    <tr>
+        <th>Type</th>
+        <td>
+            {% if supp.is_constantv%}
+            Constant,
+            {% endif %}
+            {% if supp.is_resources %}
+            Resources,
+            {% endif %}
+            {% if supp.is_sponsor %}
+            Sponsor,
+            {% endif %}
+            {% if supp.is_si %}
+            SI,
+            {% endif %}
+            {% if supp.is_one_time %}
+            One Time,
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <th>Amount</th>
+        <td>{{supp.amount}}</td>
+    </tr>
+    <tr>
+        <th>SI_Date</th>
+        <td>{{supp.si_date}}</td>
+    </tr>
+    <tr>
+        <th>Profession</th>
+        <td>{{supp.profession}}</td>
+    </tr>
+    <tr>
+        <th>DOB</th>
+        <td>{{supp.dob}}</td>
+    </tr>
+    <tr>
+        <th>Verified</th>
+        <td>{{supp.is_verified}}</td>
+    </tr>
+    <tr>
+        <th>Last Donation Generated</th>
+        <td>{{supp.last_generated}}</td>
+    </tr>
+    <tr>
+        <th>Date Added</th>
+        <td>{{supp.date_added}}</td>
+    </tr>
+    <tr>
+        <th>Last Edited</th>
+        <td>{{supp.date_edited}}</td>
+    </tr>
+</table>
+{% if view == 'delete' %}
+<input type="submit" formaction="{% url 'supporters:deleted' %}" value="Delete">
+{% endif %}
+{% if view == 'details' %}
+<input type="submit" formaction="{% url 'supporters:don_details' %}" value="Donations">
+{% endif %}
+</form>
+{% endblock %}

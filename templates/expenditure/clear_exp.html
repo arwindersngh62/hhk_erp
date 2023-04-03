@@ -1,0 +1,9 @@
+{% extends 'users/index.html'%}
+
+{% block content%}
+<ul>
+{% for obj in adv %}
+	<li>{{obj.adv_id}},{{obj.added_by.name}},</li>
+{% endfor %}
+</ul>
+{% endblock %}

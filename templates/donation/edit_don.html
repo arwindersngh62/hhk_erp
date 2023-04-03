@@ -1,0 +1,51 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+table,th,td {
+border:2px solid lightgreen;
+border-collapse: collapse;
+}
+</style>
+<form method="POST">
+{%csrf_token%}
+<table >
+	<tr>
+	<th>Reciept No</th>
+	<th>Member Name</th>
+	<th>Amount</th>
+	<th>Date of Donation</th>
+	<th>Date of Reciept</th>
+	<th>Mode of Donation</th>
+	<th>Mail Sent</th>
+	<th>Select</th>
+	</tr>
+	{% for dons in don %}
+	<tr>
+	<td>{{dons.recipt_num}}</td>
+	<td>{{dons.member.name}}</td>
+	<td>{{dons.amount}}</td>
+	<td>{{dons.date_donation}}</td>
+	<td>{{dons.date_rec}}</td>
+	<td>{{dons.mode_donation}}</td>
+	<td>{{dons.mail_sent}}</td>
+	<td><button type="submit" name="value" value ={{dons.rec_no}}>Edit</a></td>
+	</tr>
+	{% endfor %}
+</table>
+</form>
+<div class = "pagination">
+    <span class="step_links">
+        {% if supp.has_previous %}
+            <a href="?page=1&typea={{type}}">&laquo; First</a>
+            <a href="?page={{ supp.previous_page_number}}&typea={{type}}">Previous</a>
+        {% endif %}
+        <span class="current">
+            Page {{supp.number}} of {{supp.paginator.num_pages}}
+        </span>
+        {% if supp.has_next %}
+            <a href="?page={{supp.paginator.num_pages}}&typea={{type}}">Last &raquo;</a>
+            <a href="?page={{supp.next_page_number}}&typea={{type}}">Next</a>
+        {% endif %}
+    </span>
+</div>
+{% endblock %}

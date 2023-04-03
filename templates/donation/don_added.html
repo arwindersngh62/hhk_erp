@@ -1,0 +1,44 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+table, th, td{
+    border:1px solid black;
+    }
+    td,th {
+    padding:10px;
+    }
+</style>
+
+<table >
+    <tr>
+        <th>Recipt No.</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Donation Date</th>
+        <th>Mode</th>
+        <th>Recipt Date</th>
+        <th>Migrated</th>
+    </tr>
+    {% for value in values %}
+        <tr>
+            {% for part in value %}
+                <td>{{part}}</td>
+            {% endfor %}
+        </tr>
+    {% endfor %}
+</table>
+{% if view == 'details' %}
+<h1 style="text-align:center;">Total Donation Amount = {{total}}</h1>
+{% endif %}
+{% if view == 'added'%}
+<form method = "POST" action="{% url 'donation:download_rec' %}" target="_blank">
+{% csrf_token %}
+{% for file_name in f_name %}
+<input type="text" hidden value="{{file_name}}" name="file{{forloop.counter}}">
+{% endfor %}
+{%if view != 'added_none' %}
+<input type="submit" value="Download Recipt">
+{% endif %}
+</form>
+{% endif %}
+{% endblock %}

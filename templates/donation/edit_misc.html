@@ -1,0 +1,9 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<form method = "POST" action="{% url 'donation:edit_misc' %}">
+{% csrf_token %}
+Current Value : {{value}} <br>
+{{form}}
+<input type = Submit value = "Submit">
+</form>
+{% endblock %}

@@ -1,0 +1,95 @@
+{% extends 'users/index.html' %}
+{% block content %}
+{% if message == '0' %}
+<form  method="POST">
+{% csrf_token %}
+<label for="name">Name</label>
+<input type="text" id="name" list="names_all" name="supp_name" placeholder="Member Name.." >
+<datalist id="names_all">
+{% for choice in supp%}
+  <option  value="{{choice.name}},{{choice.phone_no}}" ></option>
+{%endfor%}
+</datalist>
+<input type="submit" value="Submit">
+</form>
+{% else %}
+{% if mode == 'edit' %}
+<form action="{% url 'donation:don_edited' %}" method="post">
+  <input type = "hidden" name="rec_no" value={{rec.rec_no}}>
+{% else %}
+<form action="{% url 'donation:don_added' %}" method="post">
+<input type="hidden" name = "type" id="type" value="0">
+<input type="hidden" name="pk" id="pk" value="{{supporter.pk}}">
+{% endif %}
+   {% csrf_token %}
+  <table style="text-align:right;">
+    <tr>
+      <th>Name:</th><td>{{supporter.name}}</td>
+    </tr>
+    <tr>
+      <th>Phone:</th><td>{{supporter.phone_no}}</td>
+    </tr>
+    <tr>
+      <th>City:</th><td>{{supporter.city}}</td>
+    </tr>
+    <tr>
+      <th>email:</th><td>{{supporter.email_id}}</td>
+    </tr>
+  {{form.as_table}}
+  {% if mode == 'edit' %}
+  <tr>
+    <th>
+<label for="name">Name</label>
+</th>
+<td>
+<input type="text" id="name" list="names_all" name="supp_name" placeholder="Member Name.." >
+<datalist id="names_all">
+{% for choice in new_sup%}
+  <option  value="{{choice.name}},{{choice.phone_no}}" ></option>
+{%endfor%}
+</datalist>
+</td>
+</tr>
+    <th>Reciept Date</th><td>{{rec.date_rec}}</td>
+    </tr>
+    <tr>
+    <th>Mail Sent</th><td>{{rec.mail_sent}}</td>
+    </tr>
+      <tr>
+    <th>Migrated</th><td>{{rec.migrated}}</td>
+    </tr>
+  <tr>
+  <th><label for = "old_date_donation">Date Of Donation(Old)</label></th>
+  <td>
+  <input type = "text" name = "old_date_donation" id = "old_date_donation" 
+  value = "{{rec.date_donation.year}}-{{rec.date_donation.month}}-{{rec.date_donation.day}}" disabled="True">
+  </td>
+  </tr>
+  {% endif %}
+  <tr>
+  <th><label for = "date_donation">Date Of Donation</label></th>
+  <td>
+  <input type = "date" name = "date_donation" id = "date_donation">
+  </td>
+  </tr>
+    <tr>
+        <th><label for="mail"> Send Mail</label></th>
+        <td><input type="checkbox" name="mail" id = "mail" value="True"></td>
+    </tr>
+    <tr>
+        <th><label for="email_id">Email(if not present)</label></th>
+        <td><input type="email" name="email_id" id = "email_id"></td>
+    </tr>
+    <tr>
+        <th><label for="save">Save Recipt</label></th>
+        <td><input type="checkbox" name="save" id = "save" value="True"></td>
+    </tr>
+  <tr>
+    <td>
+  <input style = "width:100%;" type="submit" value="Submit">
+    </td>
+  </tr>
+  </table>
+</form>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'users/index.html'%}
+
+{% block content%}
+{%if type == 0 %}
+advanced
+{% elif type == 1 %}
+expenditure
+{% else %}
+coming soon
+{% endif %}
+
+{% endblock %}

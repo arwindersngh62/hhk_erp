@@ -1,0 +1,85 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+    .inner td{ border: 1px solid;}
+</style>
+
+<form  method="POST" action = "{% url 'exptemp:settled' %}">
+{% csrf_token %}
+<table class="inner" style = "width:10%;">
+    <tr>
+    <th>Added By</th>
+    <th>Expense Date</th>
+    <th>Amount</th>
+    <th>Added on</th>
+    <th>Event Name</th>
+    <th>Vendor Name</th>
+    <th>Expense Head </th>
+    <th>Expense Sub-Head </th>
+    <th>Expense Product </th>
+</tr>
+{% for expense in expenses %}
+<tr>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.added_by}}</label></td>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.expense_date}}</label></td>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.amount}}</label></td>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.added_on}}</label></td>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.event_name}}</label></td>
+    <td><label for = "expense-{{expense.reimb_id}}" >{{expense.vendor_name}}</label></td>
+    <td><select name="id_exp_head-{{expense.reimb_id}}" id="id_exp_head-{{expense.reimb_id}}" required="True">
+            <option value="prog">Program Cost</option>
+            <option value="admin">Administrative Cost</option>
+            <option value="funds">Fundraising Cost</option>
+    </select></td>
+    <td><select name="id_exp_subhead-{{expense.reimb_id}}" id="id_exp_subhead-{{expense.reimb_id}}" required="True"></select></td>
+    <td><input name="id_expense_product-{{expense.reimb_id}}" id="id_expense_product-{{expense.reimb_id}}"></input></td>
+    <td><a href="{% url 'exptemp:detailexp' key_id=expense.reimb_id%}" target="_blank">View Details</a></td>
+     <script>
+    var prog = ["Education", "Logistics", "Personel Salary","Events","Training"];
+    var progvals = ["edu","logs","sal","events","train"];
+    var admin = ["Financial and auditing", "Print and Stationary", "Office","Miscellaneous"];
+    var adminvals = ["fin","pstat","office","misc"];
+    var fund = ["Offline", "Online", "Events"];
+    var fundvals = ["offline","online","events"];
+    function change{{expense.reimb_id}}(itens,itenvals){
+    var selectElem = document.getElementById("id_exp_subhead-{{expense.reimb_id}}");
+    for (i=selectElem.options.length -1; i>=0; i--){
+    selectElem.options[i] = null;}
+    for (var i = 0; i < itens.length; i++){
+        var item = itens[i];
+        var element = document.createElement("option");
+        element.innerText = item;
+        element.value = itenvals[i]
+        selectElem.append(element);
+        }}
+    function sel{{expense.reimb_id}}(){
+        if (document.querySelector('#id_exp_head-{{expense.reimb_id}}').value==='prog'){change{{expense.reimb_id}}(prog,progvals);}
+        if (document.querySelector('#id_exp_head-{{expense.reimb_id}}').value==='admin'){change{{expense.reimb_id}}(admin,adminvals);}
+        if (document.querySelector('#id_exp_head-{{expense.reimb_id}}').value==='funds'){change{{expense.reimb_id}}(fund,fundvals);}
+    }
+    document.addEventListener('DOMContentLoaded',function(){document.querySelector('#id_exp_head-{{expense.reimb_id}}').onchange=sel{{expense.reimb_id}}})
+    
+</script>
+
+{% endfor %}
+<tr>
+<th columnspan="3">Total </th>
+<td>{{total}} </td>
+</tr>
+<tr>
+<th columnspan="3">Amount Aprroved(Rs) </th>
+<td><input type="number" name="amount_appr" id="amount_appr" required="True"></input></td>
+</tr>
+<tr>
+<th columnspan="3">Payment Date </th>
+<td><input  type="date" name="payment_date" id="payment_date" required="True"></input></td> 
+</tr>
+<tr>
+<th columnspan="3">Settlement Remarks </th>
+<td><textarea cols = "40" row = "5" name="settle_remarks" id="settle_remarks"></textarea></td> 
+</tr>
+</table>
+<input type = "submit" value = "Settle">
+</form>
+
+{% endblock %}

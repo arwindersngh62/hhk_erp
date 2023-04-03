@@ -1,0 +1,31 @@
+<script>
+    var prog = ["Education", "Logistics", "Personel Salary","Events","Training"];
+    var progvals = ["edu","logs","sal","events","train"];
+    var admin = ["Financial and auditing", "Print and Stationary", "Office","Miscellaneous"];
+    var adminvals = ["fin","pstat","office","misc"];
+    var fund = ["Offline", "Online", "Events"];
+    var fundvals = ["offline","online","events"];
+    function change(itens,itenvals){
+    var selectElem = document.getElementById("id_exp_subhead");
+    for (i=selectElem.options.length -1; i>=0; i--){
+    selectElem.options[i] = null;}
+    for (var i = 0; i < itens.length; i++){
+        var item = itens[i];
+        var element = document.createElement("option");
+        element.innerText = item;
+        element.value = itenvals[i]
+        selectElem.append(element);
+        }}
+    function sel(){
+        if (document.querySelector('#id_exp_head').value==='prog'){change(prog,progvals);}
+        if (document.querySelector('#id_exp_head').value==='admin'){change(admin,adminvals);}
+        if (document.querySelector('#id_exp_head').value==='funds'){change(fund,fundvals);}
+    }
+    document.addEventListener('DOMContentLoaded',function() {document.querySelector('#id_exp_head').onchange=sel})
+
+</script>
+<script>
+    document.getElementById("id_adv_amount").disabled = true;
+        document.getElementById("id_advanced").onchange = function() {
+    document.getElementById("id_adv_amount").disabled = !this.checked;}
+</script>

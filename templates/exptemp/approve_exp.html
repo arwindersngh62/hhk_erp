@@ -1,0 +1,33 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+    .inner td{ border: 1px solid;}
+</style>
+
+<form  method="POST" action = "{% url 'exptemp:settleexpform' %}">
+{% csrf_token %}
+<table class="inner" style = "width:10%;">
+    <tr>
+    <th>Please Select</th>
+    <th>Added By</th>
+    <th>Expense Date</th>
+    <th>Amount</th>
+    <th>Added on</th>
+    <th>Event Name</th>
+    <th>Vendor Name</th>
+</tr>
+{% for expense in expenses %}
+<tr>
+    <td><input type = "checkbox" name="expense{{expense.reimb_id}}" id = "expense{{expense.reimb_id}}" value = "{{expense.reimb_id}}"></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.added_by}}</label></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.expense_date}}</label></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.amount}}</label></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.added_on}}</label></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.event_name}}</label></td>
+    <td><label for = "expense{{expense.reimb_id}}" >{{expense.vendor_name}}</label></td>
+    <td><a href="{% url 'exptemp:detailexp' key_id=expense.reimb_id%}" target="_blank">View Details</a></td>
+{% endfor %}
+</table>
+<input type = "submit" value = "Settle">
+</form>
+{% endblock %}

@@ -1,0 +1,37 @@
+{% extends 'users/index.html' %}
+{% block content %}
+<style>
+table,th,td {
+border:2px solid lightgreen;
+border-collapse: collapse;
+}
+</style>
+<form method="POST">
+{%csrf_token%}
+<table >
+	<tr>
+	<th>Reciept No</th>
+	<th>Member Name</th>
+	<th>Amount</th>
+	<th>Date of Donation</th>
+	<th>Date of Reciept</th>
+	<th>Mode of Donation</th>
+	<th>Mail Sent</th>
+	<th>Select</th>
+	</tr>
+	{% for dons in don %}
+	<tr>
+	<td>{{dons.recipt_num}}</td>
+	<td>{{dons.member.name}}</td>
+	<td>{{dons.amount}}</td>
+	<td>{{dons.date_donation}}</td>
+	<td>{{dons.date_rec}}</td>
+	<td>{{dons.mode_donation}}</td>
+	<td>{{dons.mail_sent}}</td>
+	<td><input type = "checkbox" name="check{{dons.rec_no}}"></td>
+	</tr>
+	{% endfor %}
+</table>
+<input type="submit">
+</form>
+{% endblock %}

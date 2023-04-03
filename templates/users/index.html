@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<style>
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0;
+}
+.navbar {
+  overflow: hidden;
+  background-color: #b3c7d6ff;
+}
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+.subnav {
+  float: left;
+  overflow: hidden;
+}
+.subnav .subnavbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
+.userinfo {
+  font-size: 20px;
+  border: 1px blue;
+  color: green;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+  float:right;
+}
+.navbar a:hover, .subnav:hover .subnavbtn {
+  background-color: #85b3d1ff;
+}
+.subnav-content {
+  display: none;
+  position: absolute;
+  left: 0;
+  background-color: #2460A7FF;
+  width: 100%;
+  z-index: 1;
+}
+.subnav-content a {
+  float: left;
+  color: white;
+  text-decoration: none;
+}
+.subnav-content a:hover {
+  background-color: #eee;
+  color: black;
+}
+.subnav:hover .subnav-content {
+  display: block;
+}
+.main-content{
+display:block;
+float:top;
+width:50%;
+margin-left:25%;
+margin-right:25%;
+margin-top:3%;
+padding-left:10%;
+background-color:#85b3d1ff;
+}
+.main-content input[type=submit],#onebut{
+width:30%;
+height:30px;
+margin-left:35%;
+margin-top:10px;
+border-radius:30px;
+background-color:#b3c7d6ff;
+}
+
+textarea {width:180px;
+height:80px;
+}
+
+</style>
+</head>
+<body>
+
+<div class="navbar">
+<div class="userinfo"> Hello,{{request.user}}</div>  
+  <div class="subnav">
+    <button class="subnavbtn">Supporters <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="{%url  'supporters:add_supp'%}">Add</a>
+      <a href="{%url  'supporters:edit_supp'%}">Edit</a>
+      <a href="{%url  'supporters:view_supp'%}">View</a>
+      <a href="{%url  'supporters:export_supporters'%}">Export</a>
+      <a href="{%url  'supporters:import'%}">Import</a>
+      <a href="{%url  'supporters:del_supp'%}">Delete</a>
+      <a href=#>Verify</a>
+
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">Donations <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="{%url 'donation:add_don' %}">Add</a>
+      <a href="{%url 'donation:view_don' %}">View</a>
+      <a href="{%url 'donation:view_don' %}">View Unverified</a>
+      <a href="{%url 'donation:edit_don' %}">Edit</a>
+      <a href="{%url 'donation:resend_mail'%}">Resend Mail</a>
+      <a href="{%url  'donation:export_donations'%}">Export</a>
+     
+      <a href=#>Verify</a>
+      <a href="{%url 'donation:edit_misc' %}">Edit Misc</a>
+  
+    </div>
+  </div>
+
+  <div class="subnav">
+    <button class="subnavbtn">Expenditure <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="{%url 'exptemp:settleexp' %}">Approve</a>
+      <a href="{%url 'exptemp:viewoldexp' %}">View</a>
+    </div>
+  </div>
+    <div class="subnav">
+    <button class="subnavbtn">Members <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="{%url 'usersreg:add_mem'%}">Add</a>
+      <a href="#link2">Edit</a>
+      <a href="#link3">View</a>
+      <a href="#link4">Delete</a>
+    </div>
+  </div>
+    <div class="subnav">
+    <button class="subnavbtn">Library <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#link1">Add</a>
+      <a href="#link2">Edit</a>
+      <a href="#link3">View</a>
+      <a href="#link4">Approve</a>
+    </div>
+  </div>
+  <div class="subnav">
+    <button class="subnavbtn">My Profile <i class="fa fa-caret-down"></i></button>
+    <div class="subnav-content">
+      <a href="#link1">Add</a>
+      <a href="#link2">Edit</a>
+      <a href="#link3">View</a>
+      <a href="{%url 'usersreg:logout'%}">Logout</a>
+    </div>
+  </div>
+</div>
+
+<div class="main-content">
+{%block content%}
+{%endblock%}
+</div>
+
+</body>
+</html>

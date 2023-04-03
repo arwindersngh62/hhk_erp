@@ -1,0 +1,13 @@
+{% extends 'users/index.html'%}
+
+{% block content%}
+<form method="POST">
+{% csrf_token %}
+<input type="hidden" value="0" name="type">
+    <table>
+    {{form.as_table}}
+</table>
+<input type="Submit" value="Submit" formaction="{%url 'expenditure:gen_exp'%}">
+</form>
+
+{% endblock %}
